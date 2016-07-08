@@ -27,3 +27,8 @@ function input(inform)
 {
 	return prompt(inform);
 }
+
+function exitPage()
+{
+	window.close();
+}
