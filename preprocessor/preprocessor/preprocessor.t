@@ -4,7 +4,7 @@ var isCopy
 var requireList
 
 
-function PRequire(str,newcode)
+function prepro(str,newcode)
     str=deleteComment(str)
     str=deleteSpace(str)
     
@@ -21,25 +21,19 @@ function PRequire(str,newcode)
             return newcode
         end
     end
-    //不是require语句,直接接入即可
-    str=retplus(str)
-    return 字符串拼接(newcode,str)
-end
-
-
-function RDefine(str,newcode)
+    
     if (字符串查找(str,"#define ")!=-1) //确认这句是define语句
         var codepath
-		字符串分割(str,"#define ",codepath)
+        字符串分割(str,"#define ",codepath)
         字符串分割(codepath[1]," ",codepath)
         var defineName=codepath[0]
         var defineVal=codepath[1]
-		if (defineVal=="#input") //检查是否是输入请求,处理一下
+        if (defineVal=="#input") //检查是否是输入请求,处理一下
             defineVal=Input(defineName)
         end
         return 字符串替换(newcode,defineName,defineVal)
     end
-     //不是require语句,直接接入即可
+    //不是require语句,直接接入即可
     str=retplus(str)
     return 字符串拼接(newcode,str)
 end
@@ -50,18 +44,9 @@ function PCodeFile(codepath)
     var code=文件读取内容(字符串拼接(path,codepath))
     var ary
     
-    //pass1
     字符串分割(code,"\r\n",ary)
     for(var i = 0; i < 数组大小(ary); i++)
-        newcode=PRequire(ary[i],newcode)
-    end
-    code=newcode
-    newcode=""
-    
-    //pass2
-    字符串分割(code,"\r\n",ary)
-    for(var i = 0; i < 数组大小(ary); i++)
-        newcode=RDefine(ary[i],newcode)
+        newcode=prepro(ary[i],newcode)
     end
     
     return newcode
