@@ -5,16 +5,16 @@ var requireList
 
 
 function PRequire(str,newcode)
-    str=deleteSpace(str)
     str=deleteComment(str)
+    str=deleteSpace(str)
     
     if (字符串查找(str,"#require ")!=-1) //确认这句是require语句
         var codepath
         字符串分割(str,"#require ",codepath)
         var newfilecode=PCodeFile(codepath[1]) //处理被require的代码文本
         if(isCopy)
-            newcode=字符串拼接(newcode,newfilecode)
-            return retplus(newcode)
+            newfilecode=retplus(newfilecode)
+            return 字符串拼接(newcode,newfilecode)
         else
             数组追加元素(requireList,codepath[1])
             writeCode(newfilecode,字符串拼接(makepath,codepath[1]))
@@ -22,13 +22,14 @@ function PRequire(str,newcode)
         end
     end
     //不是require语句,直接接入即可
-    newcode=字符串拼接(newcode,str)
-    return retplus(newcode)
+    str=retplus(str)
+    return 字符串拼接(newcode,str)
 end
 
+
 function RDefine(str,newcode)
-    str=deleteSpace(str)
     str=deleteComment(str)
+    str=deleteSpace(str)
     
     
 end

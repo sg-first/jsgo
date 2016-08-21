@@ -5,6 +5,7 @@
         if(char!=" ")
             return false
         end
+        str=字符串移除(str,1,true)
     end
     return true
 end
