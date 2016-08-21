@@ -15,7 +15,7 @@ function retplus(str)
     if(str==""||strIsSpace(str))
         return ""
     else
-		return 字符串拼接(str,"\r\n")
+        return 字符串拼接(str,"\r\n")
     end
 end
 

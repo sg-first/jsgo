@@ -55,6 +55,12 @@ end
 
 功能 preprocessor_初始化()
     path=系统获取工作路径()
+    
+    运行热键_热键()
+结束
+
+
+功能 运行热键_热键()
     var inipath=字符串拼接(path,"makefile.ini")
     //创建构建文件夹
     var name=文件读配置("project","name",inipath)
@@ -65,6 +71,7 @@ end
     //确认require方式
     if(文件读配置("build","isCopy",inipath)=="true")
         isCopy=true
+        requireList=null
     else
         isCopy=false
         requireList=array()
@@ -74,5 +81,18 @@ end
     //写入生成完毕的js文件
     writeCode(maincode,字符串拼接(makepath,"main.js"))
     //生成主页
-    
+    if(文件读配置("build","useJsgo",inipath)=="true")
+        generateIndex(name,true)
+    else
+        generateIndex(name,false)
+    end
+    //拷贝资源
+    文件夹创建(字符串拼接(makepath,"res"))
+    文件夹拷贝(字符串拼接(path,"res"),makepath)
+    //打开网页
+    if(文件读配置("build","runInPre",inipath)=="false")
+        命令(字符串拼接(makepath,"index.htm"),true)
+    else
+        
+    end
 结束
