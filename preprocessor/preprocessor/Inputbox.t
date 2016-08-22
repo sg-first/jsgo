@@ -5,15 +5,17 @@ var defineNum
 function judgeInput(defineVal,defineName,isPath=false) //看看参数是不是输入请求,如果是就处理一下
     if (defineVal=="#input")
         if(isExternal)
+            output("读取宏体")
             defineVal=文件读配置("define",转字符型(defineNum),inipath)
             defineNum=defineNum+1
             return defineVal
         else
-			if(isPath)
-				return Input(字符串拼接("path:",defineName))
-			else
-				return Input(defineName)
-			end
+            output("请输入宏体")
+            if(isPath)
+                return Input(字符串拼接("path:",defineName))
+            else
+                return Input(defineName)
+            end
         end
     end
     return defineVal
