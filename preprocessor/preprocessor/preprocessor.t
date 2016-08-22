@@ -90,11 +90,15 @@ end
     var maincode=PCodeFile("main.js")
     //写入生成完毕的js文件
     writeCode(maincode,字符串拼接(makepath,"main.js"))
-    //生成主页
-    if(文件读配置("build","useJsgo",inipath)=="true")
-        generateIndex(name,true)
+    //生成主页,如果配置选项里选择不生成主页,isCopy为false将无法运行
+    if(文件读配置("build","generateIndex",inipath)=="true")
+        if(文件读配置("build","useJsgo",inipath)=="true") //不生成主页这个选项无效化
+			generateIndex(name,true)
+		else
+			generateIndex(name,false)
+		end
     else
-        generateIndex(name,false)
+        文件拷贝(字符串拼接(path,"index.htm"),字符串拼接(makepath,"index.htm"))
     end
     //拷贝资源
     文件夹创建(字符串拼接(makepath,"res"))
