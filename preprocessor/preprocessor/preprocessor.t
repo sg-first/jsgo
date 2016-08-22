@@ -9,14 +9,18 @@ var isHide
 var isError
 
 function output(str)
-    str=字符串拼接(str,"\r\n")
-    编辑框设置文本("处理输出",字符串拼接(编辑框获取文本("处理输出"),str))
+    if(!isHide)
+		str=字符串拼接(str,"\r\n")
+		编辑框设置文本("处理输出",字符串拼接(编辑框获取文本("处理输出"),str))
+    end
 end
 
 function mistake(str)
-    str=字符串拼接("-----error: ",str)
-    output(字符串拼接(str,"-----"))
-    isError=true
+    if(!isHide)
+		str=字符串拼接("-----error: ",str)
+		output(字符串拼接(str,"-----"))
+		isError=true
+    end
 end
 
 
@@ -156,6 +160,9 @@ end
         命令(字符串拼接(makepath,"index.htm"),true)
     else
         
+    end
+    if(isHide)
+        exit()
     end
 结束
 
