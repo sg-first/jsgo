@@ -1,7 +1,9 @@
 ﻿var path
 var makepath
+var inipath
 var isCopy
 var requireList
+var isExternal
 
 
 function prepro(str,newcode)
@@ -71,7 +73,7 @@ end
 
 
 功能 运行热键_热键()
-    var inipath=字符串拼接(path,"makefile.ini")
+    inipath=字符串拼接(path,"makefile.ini")
     //创建构建文件夹
     var name=文件读配置("project","name",inipath)
     makepath=字符串拼接(path,字符串拼接("build-",name))
@@ -85,6 +87,13 @@ end
     else
         isCopy=false
         requireList=array()
+    end
+    //确定是否外部读取宏体
+    defineNum=1 //注意,不是从零开始
+    if(文件读配置("define","external",inipath)=="true")
+        isExternal=true
+    else
+        isExternal=false
     end
     //预处理代码
     var maincode=PCodeFile("main.js")
