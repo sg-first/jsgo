@@ -12,7 +12,7 @@ function prepro(str,newcode)
     if (字符串查找(str,"#require ")!=-1) //确认这句是require语句
         字符串分割(str,"#require ",codepath)
         if(codepath[0]!="")
-            messagebox("error: 无法识别的#require语句")
+            messagebox("error: 无法识别的#require语句\r\n")
         end
         var newfilecode=PCodeFile(codepath[1]) //处理被require的代码文本
         if(isCopy)
@@ -28,7 +28,7 @@ function prepro(str,newcode)
     if (字符串查找(str,"#define ")!=-1) //确认这句是define语句
         字符串分割(str,"#define ",codepath)
         if(codepath[0]!="")
-            messagebox("error: 无法识别的#define语句")
+            messagebox("error: 无法识别的#define语句\r\n")
         end
         字符串分割(codepath[1]," ",codepath)
         var defineName=codepath[0]

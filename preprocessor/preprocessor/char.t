@@ -86,7 +86,19 @@ end
 
 function deleteComment(str)
     str=findAndDelete(str,"//")
-    str=findAndDelete(str,"/*")
+    //处理/*
+    var findL=字符串查找(str,"/*")
+    if(findL!=-1)
+        var commentL=字符串截取右侧(str,字符串长度(str)-findL-字符串长度("/*"))
+        var str2=""
+        var findR=字符串查找(commentL,"*/")
+        if(findR!=-1)
+			str2=字符串截取右侧(commentL,字符串长度(commentL)-findR-字符串长度("*/"))
+        end
+		var str1=字符串截取左侧(str,findL)
+		str=字符串拼接(str1,str2)
+    end
+    //处理完毕
     str=findAndDelete(str,"*/",false)
     return str
 end
