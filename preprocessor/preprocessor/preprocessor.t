@@ -7,10 +7,13 @@ var requireList
 function prepro(str,newcode)
     str=deleteComment(str)
     str=deleteSpace(str)
+    var codepath
     
     if (字符串查找(str,"#require ")!=-1) //确认这句是require语句
-        var codepath
         字符串分割(str,"#require ",codepath)
+        if(codepath[0]!="")
+            messagebox("error: 无法识别的#require语句")
+        end
         var newfilecode=PCodeFile(codepath[1]) //处理被require的代码文本
         if(isCopy)
             newfilecode=retplus(newfilecode)
@@ -23,14 +26,22 @@ function prepro(str,newcode)
     end
     
     if (字符串查找(str,"#define ")!=-1) //确认这句是define语句
-        var codepath
         字符串分割(str,"#define ",codepath)
+        if(codepath[0]!="")
+            messagebox("error: 无法识别的#define语句")
+        end
         字符串分割(codepath[1]," ",codepath)
         var defineName=codepath[0]
         var defineVal=codepath[1]
-        if (defineVal=="#input") //检查是否是输入请求,处理一下
-            defineVal=Input(defineName)
+        
+        if(defineVal=="#read") //判定是否是读取
+            var readPar=codepath[2]
+            defineVal=judgeInput(readPar,defineName,true) //要么用户输入,要么保持原样
+            defineVal=readFile(defineVal)
         end
+        
+        defineVal=judgeInput(defineVal,defineName) //判定是否是输入
+        
         return 字符串替换(newcode,defineName,defineVal)
     end
     //不是require语句,直接接入即可

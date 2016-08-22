@@ -16,7 +16,7 @@ function generateIndex(projectname,usejsgo)
     if(requireList!=null)
         for(var i = 0; i < 数组大小(requireList); i++)
             str=字符串拼接(str,"<script language=\"JavaScript\" src=\"")
-			str=字符串拼接(str,requireList[i])
+            str=字符串拼接(str,requireList[i])
             str=字符串拼接(str,"\"></script>\r\n")
         end
     end
@@ -25,4 +25,10 @@ function generateIndex(projectname,usejsgo)
     var hand=文件创建(字符串拼接(makepath,"index.htm"),"rw")
     文件写入字符(hand,str)
     文件关闭(hand)
+end
+
+function readFile(filePath)
+    var pa=字符串替换(filePath,"Relative:\\",path)
+    var con=文件读取内容(pa)
+    return con
 end
