@@ -57,14 +57,18 @@ PIO
 -------------
 ### [project]
 * name: 项目名，构建生成的主页标题
+
 ### [build]
 * isCopy:` require`文本的包含方式。`true`为复制到原文本包含语句位置，`false`为在HTML中提前引用
 * useJsgo: 使用jsgo lib。`true`为生成主页时jsgo.js会被最先在HTML中引用
 * generateIndex: 预处理器生成主页，`true`为正常生成主页，`false`为复制工程目录下的`index.htm`到构建文件夹。如果关闭，会使得和主页生成有关的构建选项无效化
+
 ### [run]
 * hide: `true`为静默预处理，也就是启动预处理器后会自动进行预处理，处理后关闭自身，不会弹出预处理器窗口（开启PIO时会弹出子运行窗口）
+
 ### [define]
 * external:` true`为在makefile文件中自动读取宏体。上节已经叙述，不做过多说明
+
 ### [PIO]
 * usePIO: `true`为开启PIO
 * outFile: 运行结果输出到的文本名，为相对路径
