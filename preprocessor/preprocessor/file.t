@@ -1,34 +1,51 @@
 ﻿function writeCode(code,filepath)
-    文件删除(filepath)
-    var hand=文件创建(filepath,"rw")
-    文件写入字符(hand,code)
-    文件关闭(hand)
+    var hand=filecreate(filepath,"rw")
+    filewrite(hand,code)
+    fileclose(hand)
 end
 
+function copyCode(name)
+    filecopy(strcat(path,name),strcat(makepath,name))
+end
 
-function generateIndex(projectname,usejsgo)
+function generateIndex(projectname)
     var str="<html>\r\n<title>"
-    str=字符串拼接(str,projectname)
-    str=字符串拼接(str,"</title>\r\n<body>\r\n")
-    if(usejsgo)
-        str=字符串拼接(str,"<script language=\"JavaScript\" src=\"jsgo.js\"></script>\r\n")
+    str=strcat(str,projectname)
+    str=strcat(str,"</title>\r\n<body>\r\n")
+    if(usePIO)
+        str=strcat(str,"<a id=\"PIO\" name=\"PIO\" href=\"_PIO\">PIO</a><br>\r\n")
+        str=strcat(str,"<a id=\"PIOend\" name=\"PIOend\" href=\"_PIO\">PIOend</a><br>\r\n")
+        copyCode("PIO.js")
+        str=strcat(str,"<script language=\"JavaScript\" src=\"PIO.js\"></script>\r\n")
+    end
+    if(useJsgo)
+        copyCode("jsgo.js")
+        str=strcat(str,"<script language=\"JavaScript\" src=\"jsgo.js\"></script>\r\n")
     end
     if(requireList!=null)
-        for(var i = 0; i < 数组大小(requireList); i++)
-            str=字符串拼接(str,"<script language=\"JavaScript\" src=\"")
-            str=字符串拼接(str,requireList[i])
-            str=字符串拼接(str,"\"></script>\r\n")
+        for(var i = 0; i < arraysize(requireList); i++)
+            str=strcat(str,"<script language=\"JavaScript\" src=\"")
+            str=strcat(str,requireList[i])
+            str=strcat(str,"\"></script>\r\n")
         end
     end
-    str=字符串拼接(str,"<script language=\"JavaScript\" src=\"main.js\"></script>\r\n")
-    str=字符串拼接(str,"</body>\r\n</html>\r\n")
-    var hand=文件创建(字符串拼接(makepath,"index.htm"),"rw")
-    文件写入字符(hand,str)
-    文件关闭(hand)
+    str=strcat(str,"<script language=\"JavaScript\" src=\"main.js\"></script>\r\n")
+    str=strcat(str,"</body>\r\n</html>\r\n")
+    var hand=filecreate(strcat(makepath,"index.htm"),"rw")
+    filewrite(hand,str)
+    fileclose(hand)
 end
 
 function readFile(filePath)
-    var pa=字符串替换(filePath,"Relative:\\",path)
-    var con=文件读取内容(pa)
+    var pa=strreplace(filePath,"Relative:\\",path)
+    var con=filereadex(pa)
     return con
+end
+
+function readBoolINI(section,entry)
+    if(filereadini(section,entry,inipath)=="true")
+        return true
+    else
+        return false
+    end
 end

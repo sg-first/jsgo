@@ -1,6 +1,24 @@
-function output(context)
+var jsgoPrivate=
 {
-    document.write(context+"<br/>");
+    isEmpty:function(par, val)
+    {
+        if (par===undefined)
+        {return val;}
+        return par;
+    }
+}
+
+function output(context,endl)
+{
+    enel=jsgoPrivate.isEmpty(endl,true);
+    if(enel)
+    {
+        document.write(context+"<br/>");
+    }
+    else
+    {
+        document.write(context);
+    }
 }
 
 function getPath()

@@ -1,11 +1,11 @@
 ﻿function strIsSpace(str)
-    var length=字符串长度(str)
+    var length=strlen(str)
     for(var i = 0; i <= length; i++)
-        var char=字符串截取左侧(str,1)
+        var char=strleft(str,1)
         if(char!=" ")
             return false
         end
-        str=字符串移除(str,1,true)
+        str=strcut(str,1,true)
     end
     return true
 end
@@ -15,7 +15,7 @@ function retplus(str)
     if(str==""||strIsSpace(str))
         return ""
     else
-        return 字符串拼接(str,"\r\n")
+        return strcat(str,"\r\n")
     end
 end
 
@@ -24,10 +24,10 @@ function deleteSpace(str)
     var isSpace=false
     var isQuotes=false
     var newstr=""
-    var length=字符串长度(str)
+    var length=strlen(str)
     
     for(var i = 0; i <= length; i++)
-        var char=字符串截取左侧(str,1)
+        var char=strleft(str,1)
         
         if(isQuotes) //前一个字符是引号
             
@@ -35,35 +35,35 @@ function deleteSpace(str)
                 isQuotes=false
             end
             //无论是否是反引号,都拼接
-            str=字符串移除(str,1,true)
-            newstr=字符串拼接(newstr,char)
+            str=strcut(str,1,true)
+            newstr=strcat(newstr,char)
             continue
             
         else
             
             if(char=="\"") //前一个不是引号就先检查这个是否是引号
                 isQuotes=true
-                str=字符串移除(str,1,true)
-                newstr=字符串拼接(newstr,char)
+                str=strcut(str,1,true)
+                newstr=strcat(newstr,char)
                 continue
             end
             
             //确认跟引号没关系了才检查空格
             if(char==" ")
                 if(isSpace) //要是前一个是空格这个就忽略
-                    str=字符串移除(str,1,true)
+                    str=strcut(str,1,true)
                     continue
                 end
                 isSpace=true
-                str=字符串移除(str,1,true)
-                newstr=字符串拼接(newstr,char)
+                str=strcut(str,1,true)
+                newstr=strcat(newstr,char)
                 continue
             end
             
             //和空格引号都没关系,直接拼接即可
             isSpace=false
-            str=字符串移除(str,1,true)
-            newstr=字符串拼接(newstr,char)
+            str=strcut(str,1,true)
+            newstr=strcat(newstr,char)
             
         end
     end
@@ -72,12 +72,12 @@ end
 
 
 function findAndDelete(str,findcontext,front=true)
-    var find=字符串查找(str,findcontext)
+    var find=strfind(str,findcontext)
     if(find!=-1)
         if(front)
-            return 字符串截取左侧(str,find)
+            return strleft(str,find)
         else
-            return 字符串截取右侧(str,字符串长度(str)-find-字符串长度(findcontext))
+            return strright(str,strlen(str)-find-strlen(findcontext))
         end
     end
     return str
@@ -87,16 +87,16 @@ end
 function deleteComment(str)
     str=findAndDelete(str,"//")
     //处理/*
-    var findL=字符串查找(str,"/*")
+    var findL=strfind(str,"/*")
     if(findL!=-1)
-        var commentL=字符串截取右侧(str,字符串长度(str)-findL-字符串长度("/*"))
+        var commentL=strright(str,strlen(str)-findL-strlen("/*"))
         var str2=""
-        var findR=字符串查找(commentL,"*/")
+        var findR=strfind(commentL,"*/")
         if(findR!=-1)
-            str2=字符串截取右侧(commentL,字符串长度(commentL)-findR-字符串长度("*/"))
+            str2=strright(commentL,strlen(commentL)-findR-strlen("*/"))
         end
-        var str1=字符串截取左侧(str,findL)
-        str=字符串拼接(str1,str2)
+        var str1=strleft(str,findL)
+        str=strcat(str1,str2)
     end
     //处理完毕
     str=findAndDelete(str,"*/",false)

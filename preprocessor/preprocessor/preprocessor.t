@@ -5,21 +5,27 @@ var isCopy
 var requireList
 var isExternal
 var isHide
+var useJsgo
+var usePIO
 
 var isError
 
+function mainExit()
+    exit()
+end
+
 function output(str)
     if(!isHide)
-		str=字符串拼接(str,"\r\n")
-		编辑框设置文本("处理输出",字符串拼接(编辑框获取文本("处理输出"),str))
+        str=字符串拼接(str,"\r\n")
+        编辑框设置文本("处理输出",字符串拼接(编辑框获取文本("处理输出"),str))
     end
 end
 
 function mistake(str)
     if(!isHide)
-		str=字符串拼接("-----error: ",str)
-		output(字符串拼接(str,"-----"))
-		isError=true
+        str=字符串拼接("-----error: ",str)
+        output(字符串拼接(str,"-----"))
+        isError=true
     end
 end
 
@@ -98,11 +104,7 @@ end
 功能 preprocessor_初始化()
     path=系统获取工作路径()
     inipath=字符串拼接(path,"makefile.ini")
-    if(文件读配置("run","hide",inipath)=="true")
-        isHide=true
-    else
-        isHide=false
-    end
+    isHide=readBoolINI("run","hide")
     if(isHide)
         运行热键_热键()
     end
@@ -128,11 +130,7 @@ end
     end
     output("确认是否外部读取宏体")
     defineNum=1 //注意,不是从零开始
-    if(文件读配置("define","external",inipath)=="true")
-        isExternal=true
-    else
-        isExternal=false
-    end
+    isExternal=readBoolINI("define","external")
     output("开始预处理代码")
     var maincode=PCodeFile("main.js")
     output("生成main.js")
@@ -141,28 +139,30 @@ end
         return
     end
     //生成主页,如果配置选项里选择不生成主页,isCopy为false将无法运行
+    useJsgo=readBoolINI("build","useJsgo")
+    usePIO=readBoolINI("PIO","usePIO")
     if(文件读配置("build","generateIndex",inipath)=="true")
         output("生成主页")
-        if(文件读配置("build","useJsgo",inipath)=="true") //不生成主页这个选项无效化
-            generateIndex(name,true)
-        else
-            generateIndex(name,false)
-        end
+        generateIndex(name)
     else
         output("拷贝主页")
-        文件拷贝(字符串拼接(path,"index.htm"),字符串拼接(makepath,"index.htm"))
+        copyCode("index.htm")
     end
     output("拷贝资源")
     文件夹创建(字符串拼接(makepath,"res"))
     文件夹拷贝(字符串拼接(path,"res"),makepath)
     output("-----finish: 开始运行-----")
-    if(文件读配置("build","runInPre",inipath)=="false")
+    if(!usePIO)
         命令(字符串拼接(makepath,"index.htm"),true)
+        if(isHide)
+            exit()
+        end
     else
-        
-    end
-    if(isHide)
-        exit()
+        run()
+        if(isHide)
+            var mainhandl=窗口获取自我句柄()
+            窗口隐藏(mainhandl)
+        end
     end
 结束
 
