@@ -7,13 +7,13 @@ jsgo.js
 Some basic interaction function.
 
 ### Rely
-nothing.
+nothing
 
 ### external
-* `output(output context : string,line feed=true : bool) : undefine` output a string.
+* `output(output context : string,line feed=true : bool) : undefine` Output a string.
 * `getPath() : string` Get the program running path.
-* `outpic(picture path : string) : undefine` output a picture.
-* `wrap() : undefine` line feed.
+* `outpic(picture path : string) : undefine` Output a picture.
+* `wrap() : undefine` Line feed.
 * `msgbox(msgbox content : string) : undefine` Displays a message box
 * `selbox(msgbox content : string) : bool` Displays a select box (yes or no) and return the choice of the user.
 * `input(Prompt information : string) : string` Input box, return to user input.
@@ -31,11 +31,11 @@ Combined with the preprocessor, output the results to the external environment.
 * jsgo.js
 
 ### external
-* `Pout(out context : string,line feed=false : bool,call output=true : bool) : undefine` output content, after the program will be passed to the external environment. Be careful, use `\br` to line feed is invalid.
+* `Pout(out context : string,line feed=false : bool,call output=true : bool) : undefine` Output content, after the program will be passed to the external environment. Be careful, use `\br` to line feed is invalid.
 * `Pexit() : undefine` Pass all the output variables to the external environment.
 
 ### PIOPrivate
-* `addText(container name: string,out context : string) : undefine` add a string to the specified container. Be careful, use `\br` to line feed is invalid.
+* `addText(container name: string,out context : string) : undefine` Add a string to the specified container. Be careful, use `\br` to line feed is invalid.
 
 canvas.js
 -----------
