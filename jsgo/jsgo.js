@@ -8,16 +8,16 @@ var jsgoPrivate=
     }
 }
 
-function output(context,endl)
+function output(content,endl)
 {
     enel=jsgoPrivate.isEmpty(endl,true);
     if(enel)
     {
-        document.write(context+"<br/>");
+        document.write(content+"<br/>");
     }
     else
     {
-        document.write(context);
+        document.write(content);
     }
 }
 
@@ -36,19 +36,19 @@ function outpic(path)
 	document.write("<body><img src='"+path+"'></body>"+"<br/>");
 }
 
-function wrap(path)
+function wrap()
 {
 	document.write("<br/>");
 }
 
-function msgbox(context)
+function msgbox(content)
 {
-	alert(context);
+	alert(content);
 }
 
-function conbox(context)
+function selbox(content)
 {
-    return confirm(context);
+    return confirm(content);
 }
 
 function input(inform)
