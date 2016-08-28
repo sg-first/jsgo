@@ -59,8 +59,8 @@ Build Options
 * name: Project name, It’s the title of index.
 
 ### [build]
-* isCopy: require mode. `True` is copied to the place that require sentence.
-* useJsgo: Use jsgo lib.`True` is jsgo.js will be the first require in HTML when generated index.
+* isCopy: require mode. `true` is copied to the place that require sentence.
+* useJsgo: Use jsgo lib.`true` is jsgo.js will be the first require in HTML when generated index.
 * generateIndex: preprocessor generated index, `true` is generated index, `false` is copied the `index.htm` in project directory to build folder, It will make the build options busting that have relationships with generated index.
 
 ### [run]
@@ -78,6 +78,6 @@ Build Options
 
 Pack
 --------
-If the program only needs one-time preprocessing. You can package build directory directly by WinRAR and other tools to EXE (If you don’t want to pop up the browser window. You can use [HTML application framework](https://github.com/sg-first/FSG/tree/master/TC5_HTML%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6/%E7%94%9F%E6%88%90)pack index.htm)
+If the program only needs one-time preprocessing. You can package build directory directly by WinRAR and other tools to EXE (If you don’t want to pop up the browser window. You can use [HTML application framework](https://github.com/sg-first/FSG/tree/master/TC5_HTML%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6/%E7%94%9F%E6%88%90) pack index.htm)
 
 If the program needs to be processed dynamically or the output result in dynamic process is in run-time. Package needs to include preprocessor. You should delete the build directory and the result output file after the test finished, then open `[run]hide` build options (Doesn’t affect the input window pop up). And then directly package the entire project directory and set `jsgo preprocessor.exe` for entry.
