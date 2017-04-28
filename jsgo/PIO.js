@@ -15,8 +15,8 @@ var PIOPrivate=
 
 function Pout(str,endl,out)
 {
-    endl=jsgoPrivate.isEmpty(endl,false);
-    out=jsgoPrivate.isEmpty(out,true);
+    endl=endl||false;
+    out=out||true;
     if(endl)
         PIOPrivate.addText("PIO",str+"_endl");
     else

@@ -1,16 +1,6 @@
-var jsgoPrivate=
-{
-    isEmpty:function(par, val)
-    {
-        if (par===undefined)
-        {return val;}
-        return par;
-    }
-}
-
 function output(content,endl)
 {
-    enel=jsgoPrivate.isEmpty(endl,true);
+    enel=endl||true;
     if(enel)
     {
         document.write(content+"<br/>");
