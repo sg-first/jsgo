@@ -4,6 +4,6 @@ jsgo consists of jsgo preprocessor and a simple js library (called jsgo lib). js
 
 Kit
 ----------
-* [jsgo lib](jsgo lib.md)
+* [jsgo lib](jsgo-lib.md)
 * [jsgo preprocessor(en)](jsgo preprocessor.md)
 * [jsgo预处理器(zh)](jsgo预处理器.md)
