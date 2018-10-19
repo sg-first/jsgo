@@ -11,7 +11,7 @@
 end
 
 
-function retplus(str)
+function retplus(str) //就是换行？
     if(str==""||strIsSpace(str))
         return ""
     else
@@ -84,19 +84,18 @@ function findAndDelete(str,findcontext,front=true)
 end
 
 
-function deleteComment(str)
-    str=findAndDelete(str,"//")
-    //处理/*
+function deleteMulComment(str)
     var findL=strfind(str,"/*")
     if(findL!=-1)
-        var commentL=strright(str,strlen(str)-findL-strlen("/*"))
-        var str2=""
+        var commentL=strright(str,strlen(str)-findL-strlen("/*")) // /*右边的内容
+        var str2="" //注释结束后的字符
         var findR=strfind(commentL,"*/")
-        if(findR!=-1)
-            str2=strright(commentL,strlen(commentL)-findR-strlen("*/"))
+        if(findR!=-1)  //存在就有后边，否则就前边一段
+            str2=strright(commentL,strlen(commentL)-findR-strlen("*/"))  // */之后的内容
         end
-        var str1=strleft(str,findL)
-        str=strcat(str1,str2)
+        //处理完成，最后拼接
+        var str1=strleft(str,findL)  //注释结束前的字符
+        str=strcat(str1,str2)  //前后拼装
     end
     //处理完毕
     str=findAndDelete(str,"*/",false)

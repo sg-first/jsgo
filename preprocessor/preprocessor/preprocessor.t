@@ -31,8 +31,7 @@ end
 
 
 function prepro(str,newcode)
-    str=deleteComment(str)
-    str=deleteSpace(str)
+    str=findAndDelete(str,"//") //处理单行注释
     var codepath
     
     if (strfind(str,"#require ")!=-1) //确认这句是require语句
@@ -87,6 +86,9 @@ function PCodeFile(codepath)
     var newcode=""
     var code=filereadex(strcat(path,codepath))
     var ary
+    
+    code=deleteMulComment(code)
+    code=deleteSpace(code)    
     
     strsplit(code,"\r\n",ary)
     for(var i = 0; i < arraysize(ary); i++)
