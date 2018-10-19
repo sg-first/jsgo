@@ -1,4 +1,4 @@
-﻿function strIsSpace(str)
+function strIsSpace(str)
     var length=strlen(str)
     for(var i = 0; i <= length; i++)
         var char=strleft(str,1)
@@ -97,7 +97,5 @@ function deleteMulComment(str)
         var str1=strleft(str,findL)  //注释结束前的字符
         str=strcat(str1,str2)  //前后拼装
     end
-    //处理完毕
-    str=findAndDelete(str,"*/",false)
     return str
 end
